@@ -38,15 +38,6 @@ jobs:
         # запустить написанные разработчиком тесты
         python manage.py test
 
-  build:
-    name: Creature image
-    runs-on: ubuntu-latest
-    needs: tests
-    steps:
-    - name: Build image
-      run: |
-        docker build .
-
   build_and_push_to_docker_hub:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
@@ -69,4 +60,4 @@ jobs:
         uses: docker/build-push-action@v2 
         with:
           push: true
-          tags: dmitryostrovskiy/infra_actions:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/infra_actions:latest
